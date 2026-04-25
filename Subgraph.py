@@ -20,22 +20,22 @@ def subgraph_by_continent(G, continent):
 
     return sub_G
 
-def generate_clusters_by_node_list(G, node_list):
+def generate_clusters_by_node_list(G, node_list, attribute):
     C = nx.Graph()
     C.add_nodes_from(node_list)
 
-    # Generate all possible edges between nodes (not optimal for general case)
-    combos = list(combinations(node_list, 2))
-
-    # Store number of airports in each continent
+    # Store number of airports in each cluster
     for node in node_list:
-        count = nodes_per_continent_val(G, node)
+        count = nodes_per_attribute_val(G, node, attribute)
         C.nodes[node]["airports"] = count
 
     # Edges Between
-    for c1, c2 in combos:
-        edges = edges_between(G, c1, c2)
-        if edges > 0:
-            C.add_edge(c1, c2, weight=edges)
+    for node1, node2 in G.edges():
+        c1 = G.nodes[node1][attribute]
+        c2 = G.nodes[node2][attribute]
+        if c1 in node_list and c2 in node_list and c1 != c2:
+            edges = edges_between(G, c1, c2, attribute)
+            if edges > 0:
+                C.add_edge(c1, c2, weight=edges)
 
     return C

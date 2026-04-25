@@ -70,7 +70,7 @@ def degree_distribution_scatter(degrees, graph_name):
     plt.show()
 
 def display_spring_layout_edge_labes(G):
-    pos = nx.spring_layout(G, weight='inv_weight', seed=23, k=1.2, iterations=100)
+    pos = nx.spring_layout(G, weight='inv_weight', seed=50, k=1.4, iterations=100)
     nx.draw(G, pos, with_labels=True, node_size=2500, node_color='lightblue', font_weight='bold', font_size=10)
     nx.draw_networkx_edge_labels(G, pos, label_pos=0.6, edge_labels=nx.get_edge_attributes(G, "weight"), font_weight='bold')
     plt.show()
