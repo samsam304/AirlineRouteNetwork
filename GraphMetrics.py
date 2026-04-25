@@ -38,41 +38,41 @@ def nodes_w_degree(G, k):
 
     print(f"Airports with degree {k}: {node_w_degree}")
 
-def nodes_per_continent(G, continent):
-    continents = nx.get_node_attributes(G, "continent")
+def nodes_per_attribute(G, attribute, attribute_name):
+    continents = nx.get_node_attributes(G, attribute_name)
 
     count = 0
     for airport in continents.values():
-        if airport == continent:
+        if airport == attribute:
             count += 1
 
-    print(f"Number of Airports in {continent}: {count}")
+    print(f"Number of Airports in {attribute}: {count}")
 
-def nodes_per_continent_val(G, continent):
-    continents = nx.get_node_attributes(G, "continent")
+def nodes_per_attribute_val(G, attribute, attribute_name):
+    continents = nx.get_node_attributes(G, attribute_name)
 
     count = 0
     for airport in continents.values():
-        if airport == continent:
+        if airport == attribute:
             count += 1
 
     return count
 
-def edges_between(G, con1, con2):
+def edges_between(G, con1, con2, attribute):
     count = 0
     for node1, node2 in G.edges():
-        c1 = G.nodes[node1]["continent"]
-        c2 = G.nodes[node2]["continent"]
+        c1 = G.nodes[node1][attribute]
+        c2 = G.nodes[node2][attribute]
         if (c1 == con1 and c2 == con2) or (c1 == con2 and c2 == con1):
             count += 1
 
     return count
 
-def edges_within(G, con):
+def edges_within(G, con, attribute):
     count = 0
     for node1, node2 in G.edges():
-        c1 = G.nodes[node1]["continent"]
-        c2 = G.nodes[node2]["continent"]
+        c1 = G.nodes[node1][attribute]
+        c2 = G.nodes[node2][attribute]
         if c1 == con and c2 == con:
             count += 1
 
